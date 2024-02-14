@@ -47,6 +47,7 @@ func (s *Storage) SaveURL(urlToSave string, alias string) (int64, error) {
 		return 0, fmt.Errorf("%s: %w", op, err)
 	}
 
+	// TODO: refactor this save url then save alias (check already existed)
 	res, err := stmt.Exec(urlToSave, alias)
 	if err != nil {
 		if sqliteErr, ok := err.(sqlite3.Error); ok && sqliteErr.ExtendedCode == sqlite3.ErrConstraintUnique {
@@ -85,5 +86,5 @@ func (s *Storage) GetURL(alias string) (string, error) {
 	return resURL, nil
 }
 
-// TODO: implement method DeleteURL
+// TODO: implement method DeleteURL and handler Delete
 // func (s *Storage) DeleteURL(alias string) error {}
